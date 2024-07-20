@@ -8,24 +8,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FindService = void 0;
-const FindFromFileRepository_1 = require("../../repository/find/FindFromFileRepository");
-const FindRepository_1 = require("../../repository/find/FindRepository");
-class FindService {
-    constructor() {
-        this.findRepository = new FindRepository_1.FindRepository();
-        this.findFromFileRepository = new FindFromFileRepository_1.FindFromFileRepository();
-    }
+exports.FindFromFileRepository = void 0;
+const fs_1 = require("fs");
+const path_1 = __importDefault(require("path"));
+class FindFromFileRepository {
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.findRepository.findAll();
-        });
-    }
-    findFileFromFile() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.findFromFileRepository.findAll();
+            const filePath = path_1.default.join(__dirname, "../../../resources");
+            return new Promise((resolve, reject) => {
+                (0, fs_1.readFile)(`${filePath}/todo.json`, "utf-8", (err, result) => {
+                    if (err) {
+                        console.error(err);
+                        reject(err);
+                    }
+                    console.log(`read file -> ${result}`);
+                    resolve(JSON.parse(result));
+                });
+            });
         });
     }
 }
-exports.FindService = FindService;
+exports.FindFromFileRepository = FindFromFileRepository;
