@@ -1,21 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindController = void 0;
-const TodoStatus_1 = require("../../model/TodoStatus");
+const FindService_1 = require("../../service/find/FindService");
 class FindController {
     constructor(app) {
         this.app = app;
+        this.findService = new FindService_1.FindService();
     }
     findAll() {
         this.app.get("/", (req, res) => {
-            res.send([
-                {
-                    _id: "abc",
-                    title: "Title 1",
-                    description: "lorem ipsum",
-                    status: TodoStatus_1.TodoStatus.COMPLETED,
-                },
-            ]);
+            res.send(this.findService.findAll());
         });
     }
 }
