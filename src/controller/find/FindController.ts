@@ -1,7 +1,7 @@
 import { Application, Request, Response } from "express";
 import { IFindController } from "./IFindController";
-import { IFindService } from "../../service/IFindService";
-import { FindService } from "../../service/FindService";
+import { IFindService } from "../../service/find/IFindService";
+import { FindService } from "../../service/find/FindService";
 
 export class FindController implements IFindController {
   private findService: IFindService = new FindService();
