@@ -1,37 +1,40 @@
-import { TodoElementModel } from "../../../src/model/TodoElement";
 import { TodoStatus } from "../../../src/model/TodoStatus";
 import { FindRepository } from "../../../src/repository/find/FindRepository";
 import { FindService } from "../../../src/service/find/FindService";
-
-// Creiamo un mock della classe FindRepository
-jest.mock("../../../src/repository/find", () => {
-  return {
-    FindRepository: jest.fn().mockImplementation(() => {
-      return {
-        findAll: jest.fn().mockResolvedValue([
-          {
-            _id: "abc",
-            title: "Title 1",
-            description: "lorem ipsum",
-            status: TodoStatus.COMPLETED,
-          },
-        ]),
-      };
-    }),
-  };
-});
+import { Test, TestingModule } from '@nestjs/testing';
 
 describe("FindService", () => {
-  let service: FindService;
-  let repository: FindRepository;
+  let findService: FindService;
+  let findRepository: FindRepository;
 
-  beforeEach(() => {
-    service = new FindService();
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [FindService],
+      providers: [{
+        provide: FindRepository,
+        useValue: {
+          findAll: jest.fn()
+        }
+      }]
+    }).compile();
+
+    findService = module.get<FindService>(FindService);
+    findRepository = module.get<FindRepository>(FindRepository);
   });
 
   test("should find all element", async () => {
-    const items = await service.findAll();
-    expect(items).toHaveLength(1);
-    expect(items).toEqual(repository.findAll());
+    const mockResult = [
+      {
+        _id: "abc",
+        title: "Title 1",
+        description: "lorem ipsum",
+        status: TodoStatus.COMPLETED,
+      },
+    ];
+    jest.spyOn(findRepository, 'findAll').mockResolvedValue(mockResult);
+
+    const items = await findService.findAll();
+    expect(items).toHaveLength(mockResult.length);
+    expect(items).toEqual(mockResult);
   });
 });
