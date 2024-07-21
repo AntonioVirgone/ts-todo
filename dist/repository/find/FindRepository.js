@@ -9,23 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FindService = void 0;
-const FindFromFileRepository_1 = require("../../repository/find/FindFromFileRepository");
-const FindRepository_1 = require("../../repository/find/FindRepository");
-class FindService {
-    constructor() {
-        this.findRepository = new FindRepository_1.FindRepository();
-        this.findFromFileRepository = new FindFromFileRepository_1.FindFromFileRepository();
-    }
+exports.FindRepository = void 0;
+const TodoStatus_1 = require("../../model/TodoStatus");
+class FindRepository {
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.findRepository.findAll();
-        });
-    }
-    findFileFromFile() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.findFromFileRepository.findAll();
+            console.log("find all by repository implementation without read file");
+            return [
+                {
+                    _id: "abc",
+                    title: "Title 1",
+                    description: "lorem ipsum",
+                    status: TodoStatus_1.TodoStatus.COMPLETED,
+                },
+            ];
         });
     }
 }
-exports.FindService = FindService;
+exports.FindRepository = FindRepository;

@@ -1,15 +1,16 @@
-import { Application, Request, Response } from "express";
 import { IFindController } from "./IFindController";
 import { IFindService } from "../../service/find/IFindService";
 import { FindService } from "../../service/find/FindService";
+import { TodoElementModel } from "../../model/TodoElement";
 
 export class FindController implements IFindController {
   private findService: IFindService = new FindService();
-  constructor(private app: Application) {}
 
-  findAll() {
-    this.app.get("/", (req: Request, res: Response) => {
-      res.send(this.findService.findAll());
-    });
+  async findAll(): Promise<TodoElementModel[]> {    
+    return await this.findService.findAll();
+  }
+  
+  async findFromFile(): Promise<TodoElementModel[]> {
+    return await this.findService.findFileFromFile();
   }
 }

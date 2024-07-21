@@ -1,16 +1,18 @@
 import { TodoElementModel } from "../../model/TodoElement";
-import { TodoStatus } from "../../model/TodoStatus";
+import { FindFromFileRepository } from "../../repository/find/FindFromFileRepository";
+import { FindRepository } from "../../repository/find/FindRepository";
+import { IFindRepository } from "../../repository/find/IFindRepository";
 import { IFindService } from "./IFindService";
 
 export class FindService implements IFindService {
-    findAll(): TodoElementModel[] {
-        return [
-            {
-              _id: "abc",
-              title: "Title 1",
-              description: "lorem ipsum",
-              status: TodoStatus.COMPLETED,
-            },
-          ]
-    }
+  private findRepository: IFindRepository = new FindRepository();
+  private findFromFileRepository: IFindRepository = new FindFromFileRepository();
+
+  async findAll(): Promise<TodoElementModel[]> {
+    return await this.findRepository.findAll();
+  }
+
+  async findFileFromFile(): Promise<TodoElementModel[]> {
+    return await this.findFromFileRepository.findAll();
+  }
 }
