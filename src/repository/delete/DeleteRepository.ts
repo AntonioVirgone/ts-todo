@@ -1,17 +1,14 @@
-import path from "path";
-import { promises as fs } from "fs";
 import { IDeleteRepository } from "./IDeleteRepository";
 import { FindFromFileRepository } from "../find/FindFromFileRepository";
 import { TodoElementModel } from "../../model/TodoElement";
+import { writeFile } from "../../utils/WriteFile";
 
 export class DeleteRepository implements IDeleteRepository {
   private findRepository: FindFromFileRepository = new FindFromFileRepository();
-  private filePath = path.join(__dirname, "../../../resources");
 
   async delete(): Promise<void> {
-
     try {
-      await fs.writeFile(`${this.filePath}/todo.json`, JSON.stringify([]), "utf-8");
+      await writeFile([]);
     } catch (error) {
       console.error(error);
       throw new Error("Error deleted all items");
@@ -19,8 +16,15 @@ export class DeleteRepository implements IDeleteRepository {
   }
 
   async deleteById(itemId: string): Promise<void> {
-    const items = await this.findRepository.findAll();
-    const newItems: TodoElementModel[] = items.filter(item => item._id !== itemId);
-    await fs.writeFile(`${this.filePath}/todo.json`, JSON.stringify(newItems), "utf-8");
+    try {
+      const items = await this.findRepository.findAll();
+      const newItems: TodoElementModel[] = items.filter(
+        (item) => item._id !== itemId
+      );
+      await writeFile(newItems);
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Error deleted item with id ${itemId}`);
+    }
   }
 }

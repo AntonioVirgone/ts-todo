@@ -8,27 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateRepository = void 0;
-const path_1 = __importDefault(require("path"));
-const fs_1 = require("fs");
 const FindFromFileRepository_1 = require("../find/FindFromFileRepository");
 const TodoStatus_1 = require("../../model/TodoStatus");
+const WriteFile_1 = require("../../utils/WriteFile");
 class CreateRepository {
     constructor() {
         this.findRepository = new FindFromFileRepository_1.FindFromFileRepository();
     }
     create(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            const filePath = path_1.default.join(__dirname, "../../../resources");
             try {
                 const newItem = Object.assign(Object.assign({}, item), { _id: Math.random().toString(36), status: TodoStatus_1.TodoStatus.PENDING, createdAt: new Date() });
                 let data = yield this.findRepository.findAll();
                 data.push(newItem);
-                yield fs_1.promises.writeFile(`${filePath}/todo.json`, JSON.stringify(data), "utf-8");
+                yield (0, WriteFile_1.writeFile)(data);
             }
             catch (error) {
                 console.error(error);
