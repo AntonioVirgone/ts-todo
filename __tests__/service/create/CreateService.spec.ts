@@ -23,6 +23,7 @@ describe("CreateService", () => {
       title: "Title 1",
       description: "lorem ipsum",
       status: TodoStatus.COMPLETED,
+      createdAt: new Date()
     };
     createRepository.create(item);
 

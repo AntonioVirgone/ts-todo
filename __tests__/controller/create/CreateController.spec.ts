@@ -33,6 +33,7 @@ describe("CreateController", () => {
       title: "Title 1",
       description: "lorem ipsum",
       status: TodoStatus.COMPLETED,
+      createdAt: new Date()
     };
 
     createService.create.mockResolvedValue(undefined);

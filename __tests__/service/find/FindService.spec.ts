@@ -24,6 +24,7 @@ describe("FindService", () => {
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,
+        createdAt: new Date()
       },
     ];
     findRepository.findAll.mockResolvedValue(mockResult);

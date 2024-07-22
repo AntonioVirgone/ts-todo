@@ -41,6 +41,7 @@ describe("FindController", () => {
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,
+        createdAt: new Date()
       },
     ];
 
@@ -62,6 +63,7 @@ describe("FindController", () => {
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,
+        createdAt: new Date()
       },
     ];
     findFromFileService.findFileFromFile.mockResolvedValue(mockResult);
