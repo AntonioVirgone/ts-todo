@@ -1,9 +1,15 @@
 import { TodoElementModel } from "../../model/TodoElement";
+import { ICreateRepository } from "../../repository/create/ICreateRepository";
 import { ICreateService } from "./ICreateService";
 
 export class CreateService implements ICreateService {
-    create(item: TodoElementModel): Promise<void> {
-        throw new Error("Method not implemented.");
+    createRepository: ICreateRepository;
+
+    constructor(createRepository: ICreateRepository) {
+        this.createRepository = createRepository;
     }
-    
+
+    async create(item: TodoElementModel): Promise<void> {
+        return await this.createRepository.create(item);
+    }
 }

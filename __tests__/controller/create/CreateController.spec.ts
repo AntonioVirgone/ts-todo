@@ -1,9 +1,11 @@
 import { CreateController } from "../../../src/controller/create/CreateController";
 import { TodoElementModel } from "../../../src/model/TodoElement";
 import { TodoStatus } from "../../../src/model/TodoStatus";
+import { CreateRepository } from "../../../src/repository/create/CreateRepository";
 import { CreateService } from "../../../src/service/create/CreateService";
 
 jest.mock("../../../src/service/create/CreateService");
+jest.mock(".../../../src/repository/create/CreateRepository");
 
 describe("CreateController", () => {
   let createController: CreateController;
@@ -12,8 +14,13 @@ describe("CreateController", () => {
   beforeEach(() => {
     createController = new CreateController();
 
+    // load repository
+    const createRepository = new CreateRepository();
+
     // Mock
-    createService = new CreateService() as jest.Mocked<CreateService>;
+    createService = new CreateService(
+      createRepository
+    ) as jest.Mocked<CreateService>;
 
     // Override service
     (createController as any).createService = createService;
