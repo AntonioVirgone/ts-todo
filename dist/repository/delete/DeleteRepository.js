@@ -19,7 +19,7 @@ class DeleteRepository {
     delete() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield (0, WriteFile_1.writeFile)([]);
+                yield (0, WriteFile_1.write)([]);
             }
             catch (error) {
                 console.error(error);
@@ -32,7 +32,7 @@ class DeleteRepository {
             try {
                 const items = yield this.findRepository.findAll();
                 const newItems = items.filter((item) => item._id !== itemId);
-                yield (0, WriteFile_1.writeFile)(newItems);
+                yield (0, WriteFile_1.write)(newItems);
             }
             catch (error) {
                 console.error(error);

@@ -23,7 +23,7 @@ class CreateRepository {
                 const newItem = Object.assign(Object.assign({}, item), { _id: Math.random().toString(36), status: TodoStatus_1.TodoStatus.PENDING, createdAt: new Date() });
                 let data = yield this.findRepository.findAll();
                 data.push(newItem);
-                yield (0, WriteFile_1.writeFile)(data);
+                yield (0, WriteFile_1.write)(data);
             }
             catch (error) {
                 console.error(error);

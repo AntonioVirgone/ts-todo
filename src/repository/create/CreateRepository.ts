@@ -2,7 +2,7 @@ import { TodoElementModel } from "../../model/TodoElement";
 import { ICreateRepository } from "./ICreateRepository";
 import { FindFromFileRepository } from "../find/FindFromFileRepository";
 import { TodoStatus } from "../../model/TodoStatus";
-import { writeFile } from "../../utils/WriteFile";
+import { write } from "../../utils/WriteFile";
 
 export class CreateRepository implements ICreateRepository {
   private findRepository: FindFromFileRepository = new FindFromFileRepository();
@@ -18,7 +18,7 @@ export class CreateRepository implements ICreateRepository {
       let data: TodoElementModel[] = await this.findRepository.findAll();
       data.push(newItem);
 
-      await writeFile(data);
+      await write(data);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");

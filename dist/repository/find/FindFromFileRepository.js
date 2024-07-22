@@ -8,20 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindFromFileRepository = void 0;
-const fs_1 = require("fs");
-const path_1 = __importDefault(require("path"));
+const ReadFile_1 = require("../../utils/ReadFile");
 class FindFromFileRepository {
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const filePath = path_1.default.join(__dirname, "../../../resources");
             try {
-                const data = yield fs_1.promises.readFile(`${filePath}/todo.json`, "utf-8");
-                return JSON.parse(data);
+                return JSON.parse(yield (0, ReadFile_1.read)());
             }
             catch (error) {
                 console.error(error);

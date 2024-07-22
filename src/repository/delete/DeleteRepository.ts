@@ -1,14 +1,14 @@
 import { IDeleteRepository } from "./IDeleteRepository";
 import { FindFromFileRepository } from "../find/FindFromFileRepository";
 import { TodoElementModel } from "../../model/TodoElement";
-import { writeFile } from "../../utils/WriteFile";
+import { write } from "../../utils/WriteFile";
 
 export class DeleteRepository implements IDeleteRepository {
   private findRepository: FindFromFileRepository = new FindFromFileRepository();
 
   async delete(): Promise<void> {
     try {
-      await writeFile([]);
+      await write([]);
     } catch (error) {
       console.error(error);
       throw new Error("Error deleted all items");
@@ -21,7 +21,7 @@ export class DeleteRepository implements IDeleteRepository {
       const newItems: TodoElementModel[] = items.filter(
         (item) => item._id !== itemId
       );
-      await writeFile(newItems);
+      await write(newItems);
     } catch (error) {
       console.error(error);
       throw new Error(`Error deleted item with id ${itemId}`);
