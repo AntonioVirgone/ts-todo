@@ -2,14 +2,16 @@ import express, { Request, Response } from "express";
 import { FindController } from "./controller/find/FindController";
 import { IFindController } from "./controller/find/IFindController";
 import { MessageError } from "./model/MessageError";
-import { TodoElementModel } from "./model/TodoElement";
 import { ICreateController } from "./controller/create/ICreateController";
 import { CreateController } from "./controller/create/CreateController";
+import { IDeleteController } from "./controller/delete/IDeleteController";
+import { DeleteController } from "./controller/delete/DeleteController";
 
 const app = express();
 const port = 3010;
 const findController: IFindController = new FindController();
 const createController: ICreateController = new CreateController();
+const deleteController: IDeleteController = new DeleteController();
 
 app.use(express.json());
 
@@ -18,8 +20,8 @@ app.get("/", async (req: Request, res: Response) => {
     const result = await findController.findAll();
     res.json(result);
   } catch (error) {
-    const merrsageErro: MessageError = new MessageError(404, `File not found ${error}`);
-    res.status(merrsageErro.getMessageError().status).json(merrsageErro);
+    const merrsageError: MessageError = new MessageError(404, `File not found ${error}`);
+    res.status(merrsageError.getMessageError().status).json(merrsageError);
   }
 });
 
@@ -28,8 +30,8 @@ app.get("/json", async (req: Request, res: Response) => {
     const result = await findController.findFromFile();
     res.json(result);
   } catch (error) {
-    const merrsageErro: MessageError = new MessageError(404, `File not found ${error}`);
-    res.status(merrsageErro.getMessageError().status).json(merrsageErro);
+    const merrsageError: MessageError = new MessageError(404, `File not found ${error}`);
+    res.status(merrsageError.getMessageError().status).json(merrsageError);
   }
 });
 
@@ -38,10 +40,30 @@ app.post("/", async (req: Request, res: Response) => {
     await createController.create(req.body);
     res.status(201).json();
   } catch (error) {
-    const merrsageErro: MessageError = new MessageError(400, `Input nota valid ${error}`);
-    res.status(merrsageErro.getMessageError().status).json(merrsageErro);
+    const merrsageError: MessageError = new MessageError(400, `Input nota valid ${error}`);
+    res.status(merrsageError.getMessageError().status).json(merrsageError);
   }
-})
+});
+
+app.delete("/", async (req: Request, res: Response) => {
+  try {
+    await deleteController.delete();
+    res.send(200).json();
+  } catch (error) {
+    const messageError: MessageError = new MessageError(403, `Delete all element failed ${error}`);
+    res.status(messageError.getMessageError().status).json(messageError);
+  }
+});
+
+app.delete("/:itemId", async (req: Request, res: Response) => {
+  try {
+    const { itemId } = req.params;
+    await deleteController.deleteById(itemId);
+    res.status(200).json();
+  } catch (error) {
+    const messageError: MessageError = new MessageError(403, `Delete element failed ${error}`)
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
