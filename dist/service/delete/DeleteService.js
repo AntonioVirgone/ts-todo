@@ -2,11 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteService = void 0;
 class DeleteService {
-    deleteById(itemId) {
-        throw new Error("Method not implemented.");
+    constructor(deleteRepository) {
+        this.deleteRepository = deleteRepository;
     }
     delete() {
-        throw new Error("Method not implemented.");
+        return this.deleteRepository.delete();
+    }
+    deleteById(itemId) {
+        return this.deleteRepository.deleteById(itemId);
     }
 }
 exports.DeleteService = DeleteService;
