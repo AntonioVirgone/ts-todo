@@ -1,28 +1,23 @@
 import { TodoStatus } from "../../../src/model/TodoStatus";
-import { FindRepository } from "../../../src/repository/find/FindRepository";
+import { IFindRepository } from "../../../src/repository/find/IFindRepository";
 import { FindService } from "../../../src/service/find/FindService";
-import { Test, TestingModule } from '@nestjs/testing';
 
 describe("FindService", () => {
   let findService: FindService;
-  let findRepository: FindRepository;
+  let findRepository: jest.Mocked<IFindRepository>;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [FindService],
-      providers: [{
-        provide: FindRepository,
-        useValue: {
-          findAll: jest.fn()
-        }
-      }]
-    }).compile();
+    // Create mock repository
+    findRepository = {
+      findAll: jest.fn(),
+    };
 
-    findService = module.get<FindService>(FindService);
-    findRepository = module.get<FindRepository>(FindRepository);
+    // Inject mock in service
+    findService = new FindService(findRepository);
   });
 
-  test("should find all element", async () => {
+  it("should find all element", async () => {
+    // given
     const mockResult = [
       {
         _id: "abc",
@@ -31,9 +26,12 @@ describe("FindService", () => {
         status: TodoStatus.COMPLETED,
       },
     ];
-    jest.spyOn(findRepository, 'findAll').mockResolvedValue(mockResult);
+    findRepository.findAll.mockResolvedValue(mockResult);
 
+    // when
     const items = await findService.findAll();
+
+    // then
     expect(items).toHaveLength(mockResult.length);
     expect(items).toEqual(mockResult);
   });
