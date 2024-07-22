@@ -4,8 +4,6 @@ import { IFindRepository } from "./IFindRepository";
 
 export class FindRepository implements IFindRepository {
   async findAll(): Promise<TodoElementModel[]> {
-    console.log("find all by repository implementation without read file");
-    
     return [
       {
         _id: "abc",
