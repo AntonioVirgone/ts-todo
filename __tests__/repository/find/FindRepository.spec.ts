@@ -21,10 +21,10 @@ describe("FindRepository", () => {
     ];
 
     // when
-    const items = await findRepository.findAll();
+    const result = await findRepository.findAll();
 
     // then
-    expect(items).toHaveLength(mockResult.length);
-    expect(items).toEqual(mockResult);
+    expect(result).toHaveLength(mockResult.length);
+    expect(result).toEqual(mockResult);
   });
 });

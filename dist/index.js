@@ -45,9 +45,7 @@ app.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const item = req.body;
         const result = yield createController.create(item);
-        res.status(201).json({
-            _id: result
-        });
+        res.status(201).json(result._id);
     }
     catch (error) {
         const merrsageErro = new MessageError_1.MessageError(400, `Input nota valid ${error}`);

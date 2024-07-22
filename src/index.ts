@@ -36,10 +36,8 @@ app.get("/json", async (req: Request, res: Response) => {
 app.post("/", async (req: Request, res: Response) => {
   try {
     const item: TodoElementModel = req.body;
-    const result = await createController.create(item);
-    res.status(201).json({
-      _id: result
-    });
+    const result: TodoElementModel = await createController.create(item);
+    res.status(201).json(result._id);
   } catch (error) {
     const merrsageErro: MessageError = new MessageError(400, `Input nota valid ${error}`);
     res.status(merrsageErro.getMessageError().status).json(merrsageErro);

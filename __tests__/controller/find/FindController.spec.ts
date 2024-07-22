@@ -47,11 +47,11 @@ describe("FindController", () => {
     findService.findAll.mockResolvedValue(mockResult);
 
     // when
-    const items = await findController.findAll();
+    const result = await findController.findAll();
 
     // then
-    expect(items).toHaveLength(mockResult.length);
-    expect(items).toEqual(mockResult);
+    expect(result).toHaveLength(mockResult.length);
+    expect(result).toEqual(mockResult);
   });
 
   it("should return all element when read from file", async () => {
@@ -67,10 +67,10 @@ describe("FindController", () => {
     findFromFileService.findFileFromFile.mockResolvedValue(mockResult);
 
     // when
-    const items = await findController.findFromFile();
+    const result = await findController.findFromFile();
 
     // then
-    expect(items).toHaveLength(mockResult.length);
-    expect(items).toEqual(mockResult);
+    expect(result).toHaveLength(mockResult.length);
+    expect(result).toEqual(mockResult);
   });
 });

@@ -13,7 +13,7 @@ exports.CreateController = void 0;
 class CreateController {
     create(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            return Math.random().toString(16).substring(8);
+            return item;
         });
     }
 }

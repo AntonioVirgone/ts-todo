@@ -29,10 +29,10 @@ describe("FindService", () => {
     findRepository.findAll.mockResolvedValue(mockResult);
 
     // when
-    const items = await findService.findAll();
+    const result = await findService.findAll();
 
     // then
-    expect(items).toHaveLength(mockResult.length);
-    expect(items).toEqual(mockResult);
+    expect(result).toHaveLength(mockResult.length);
+    expect(result).toEqual(mockResult);
   });
 });
