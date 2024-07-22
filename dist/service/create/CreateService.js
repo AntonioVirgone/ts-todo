@@ -9,18 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateController = void 0;
-const CreateRepository_1 = require("../../repository/create/CreateRepository");
-const CreateService_1 = require("../../service/create/CreateService");
-class CreateController {
-    constructor() {
-        this.createRepository = new CreateRepository_1.CreateRepository();
-        this.createService = new CreateService_1.CreateService(this.createRepository);
+exports.CreateService = void 0;
+class CreateService {
+    constructor(createRepository) {
+        this.createRepository = createRepository;
     }
     create(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.createService.create(item);
+            return yield this.createRepository.create(item);
         });
     }
 }
-exports.CreateController = CreateController;
+exports.CreateService = CreateService;

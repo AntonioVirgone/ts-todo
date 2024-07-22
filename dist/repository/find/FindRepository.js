@@ -20,6 +20,7 @@ class FindRepository {
                     title: "Title 1",
                     description: "lorem ipsum",
                     status: TodoStatus_1.TodoStatus.COMPLETED,
+                    createdAt: new Date()
                 },
             ];
         });
