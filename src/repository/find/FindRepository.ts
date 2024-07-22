@@ -10,6 +10,7 @@ export class FindRepository implements IFindRepository {
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,
+        createdAt: new Date()
       },
     ];
   }

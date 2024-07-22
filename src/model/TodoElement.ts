@@ -4,5 +4,6 @@ export type TodoElementModel = {
     readonly _id: string,
     title: string,
     description: string,
-    status: TodoStatus
+    status: TodoStatus,
+    createdAt: Date
 }
