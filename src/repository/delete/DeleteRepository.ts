@@ -1,6 +1,6 @@
-import { IDeleteController } from "./IDeleteController";
+import { IDeleteRepository } from "./IDeleteRepository";
 
-export class DeleteController implements IDeleteController {
+export class DeleteRepository implements IDeleteRepository {
     delete(): Promise<void> {
         throw new Error("Method not implemented.");
     }

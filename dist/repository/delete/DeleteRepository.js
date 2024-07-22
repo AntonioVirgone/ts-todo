@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteService = void 0;
-class DeleteService {
-    deleteById(itemId) {
-        throw new Error("Method not implemented.");
-    }
+exports.DeleteRepository = void 0;
+class DeleteRepository {
     delete() {
         throw new Error("Method not implemented.");
     }
+    deleteById(itemId) {
+        throw new Error("Method not implemented.");
+    }
 }
-exports.DeleteService = DeleteService;
+exports.DeleteRepository = DeleteRepository;
