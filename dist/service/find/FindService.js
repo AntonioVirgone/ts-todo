@@ -10,12 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindService = void 0;
-const FindFromFileRepository_1 = require("../../repository/find/FindFromFileRepository");
-const FindRepository_1 = require("../../repository/find/FindRepository");
 class FindService {
-    constructor() {
-        this.findRepository = new FindRepository_1.FindRepository();
-        this.findFromFileRepository = new FindFromFileRepository_1.FindFromFileRepository();
+    constructor(findRepository) {
+        this.findRepository = findRepository;
     }
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -24,7 +21,7 @@ class FindService {
     }
     findFileFromFile() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.findFromFileRepository.findAll();
+            return yield this.findRepository.findAll();
         });
     }
 }
