@@ -14,7 +14,6 @@ const TodoStatus_1 = require("../../model/TodoStatus");
 class FindRepository {
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("find all by repository implementation without read file");
             return [
                 {
                     _id: "abc",

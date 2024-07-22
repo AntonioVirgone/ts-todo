@@ -9,20 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FindService = void 0;
-class FindService {
-    constructor(findRepository) {
-        this.findRepository = findRepository;
-    }
-    findAll() {
+exports.CreateController = void 0;
+class CreateController {
+    create(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.findRepository.findAll();
-        });
-    }
-    findFileFromFile() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.findRepository.findAll();
+            return item;
         });
     }
 }
-exports.FindService = FindService;
+exports.CreateController = CreateController;

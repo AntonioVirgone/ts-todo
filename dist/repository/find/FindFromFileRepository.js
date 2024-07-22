@@ -19,16 +19,14 @@ class FindFromFileRepository {
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
             const filePath = path_1.default.join(__dirname, "../../../resources");
-            return new Promise((resolve, reject) => {
-                (0, fs_1.readFile)(`${filePath}/todo.json`, "utf-8", (err, result) => {
-                    if (err) {
-                        console.error(err);
-                        reject(err);
-                    }
-                    console.log(`read file -> ${result}`);
-                    resolve(JSON.parse(result));
-                });
-            });
+            try {
+                const data = yield fs_1.promises.readFile(`${filePath}/todo.json`, "utf-8");
+                return JSON.parse(data);
+            }
+            catch (error) {
+                console.error(error);
+                throw new Error("Error reading file");
+            }
         });
     }
 }

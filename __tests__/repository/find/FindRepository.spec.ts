@@ -6,14 +6,11 @@ describe("FindRepository", () => {
   let findRepository: FindRepository;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [FindRepository],
-    }).compile();
-
-    findRepository = module.get<FindRepository>(FindRepository);
+    findRepository = new FindRepository();
   });
 
-  test("should find all element from repository", async () => {
+  it("should find all element from repository", async () => {
+    // given
     const mockResult = [
       {
         _id: "abc",
@@ -23,8 +20,11 @@ describe("FindRepository", () => {
       },
     ];
 
-    const items = await findRepository.findAll();
-    expect(items).toHaveLength(mockResult.length);
-    expect(items).toEqual(mockResult);
+    // when
+    const result = await findRepository.findAll();
+
+    // then
+    expect(result).toHaveLength(mockResult.length);
+    expect(result).toEqual(mockResult);
   });
 });
