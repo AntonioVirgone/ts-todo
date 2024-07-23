@@ -27,7 +27,6 @@ describe("CreateController", () => {
       status: TodoStatus.COMPLETED,
       createdAt: new Date()
     };
-
     createService.create(newItem);
 
     // when

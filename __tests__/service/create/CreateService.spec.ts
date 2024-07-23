@@ -2,6 +2,8 @@ import { TodoStatus } from "../../../src/model/TodoStatus";
 import { ICreateRepository } from "../../../src/repository/create/ICreateRepository";
 import { CreateService } from "../../../src/service/create/CreateService";
 
+jest.mock("../../../src/repository/create/CreateRepository")
+
 describe("CreateService", () => {
   let createService: CreateService;
   let createRepository: jest.Mocked<ICreateRepository>;

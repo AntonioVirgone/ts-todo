@@ -36,9 +36,11 @@ app.get("/json", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/:item", async (req: Request, res: Response) => {
+app.get("/:itemId", async (req: Request, res: Response) => {
   try {
-    const { itemId } = req.params
+    const { itemId } = req.params;
+    console.log(`find by id ${itemId}`);
+    
     const result = await findController.findById(itemId)
     res.status(200).json(result);
   } catch (error) {
