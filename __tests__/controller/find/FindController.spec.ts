@@ -1,5 +1,4 @@
 import { FindController } from "../../../src/controller/find/FindController";
-import { TodoStatus } from "../../../src/model/TodoStatus";
 import { TodoElementModel } from "../../../src/model/TodoElement";
 import { IFindService } from "../../../src/service/find/IFindService";
 
@@ -17,6 +16,7 @@ describe("FindController", () => {
     findService = {
       findAll: jest.fn(),
       findFileFromFile: jest.fn(),
+      findById: jest.fn(),
     };
   });
 
@@ -45,14 +45,8 @@ describe("FindController", () => {
   it("should return item by id", async () => {
     // given
     const itemId = "::itemId::";
-    const mockResult = {
-      title: "Cucinare una cacca",
-      description: "Mescolare la farina",
-      _id: "0.jfd19cfndok",
-      status: TodoStatus.PENDING,
-      createdAt: new Date("2024-07-23T09:04:33.014Z"),
-    };
-    
+    const mockResult: TodoElementModel = await findService.findById(itemId);
+
     // when
     const result = await findController.findById(itemId);
 

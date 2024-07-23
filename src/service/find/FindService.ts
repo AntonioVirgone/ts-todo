@@ -15,4 +15,8 @@ export class FindService implements IFindService {
   async findFileFromFile(): Promise<TodoElementModel[]> {
     return await this.findFromFileRepository.findAll();
   }
+
+  async findById(itemId: string): Promise<TodoElementModel> {
+    return await this.findFromFileRepository.findById(itemId);
+  }
 }

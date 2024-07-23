@@ -10,8 +10,18 @@ export class FindRepository implements IFindRepository {
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,
-        createdAt: new Date()
+        createdAt: new Date(),
       },
     ];
+  }
+
+  async findById(itemId: string): Promise<TodoElementModel> {
+    return {
+      _id: "abc",
+      title: "Title 1",
+      description: "lorem ipsum",
+      status: TodoStatus.COMPLETED,
+      createdAt: new Date(),
+    };
   }
 }
