@@ -1,5 +1,5 @@
 import { checkFileExists } from "../../utils/ReadFile";
-import { ICreateListRepository } from "./ICreatelistRepository";
+import { ICreateListRepository } from "./ICreateListRepository";
 import { createFile } from "../../utils/WriteFile";
 
 export class CreateListRepository implements ICreateListRepository {

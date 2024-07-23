@@ -1,5 +1,5 @@
-import { CreateListRepository } from "../../repository/createList/CreatelistRepository";
-import { ICreateListRepository } from "../../repository/createList/ICreatelistRepository";
+import { CreateListRepository } from "../../repository/createList/CreateListRepository";
+import { ICreateListRepository } from "../../repository/createList/ICreateListRepository";
 import { ICreateListService } from "./ICreateListService";
 
 export class CreateListService implements ICreateListService {
