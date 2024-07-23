@@ -15,10 +15,11 @@ const deleteController: IDeleteController = new DeleteController();
 
 app.use(express.json());
 
+// GET
 app.get("/", async (req: Request, res: Response) => {
   try {
     const result = await findController.findAll();
-    res.json(result);
+    res.status(200).json(result);
   } catch (error) {
     const merrsageError: MessageError = new MessageError(404, `File not found ${error}`);
     res.status(merrsageError.getMessageError().status).json(merrsageError);
@@ -28,13 +29,27 @@ app.get("/", async (req: Request, res: Response) => {
 app.get("/json", async (req: Request, res: Response) => {
   try {
     const result = await findController.findFromFile();
-    res.json(result);
+    res.status(200).json(result);
   } catch (error) {
     const merrsageError: MessageError = new MessageError(404, `File not found ${error}`);
     res.status(merrsageError.getMessageError().status).json(merrsageError);
   }
 });
 
+app.get("/:itemId", async (req: Request, res: Response) => {
+  try {
+    const { itemId } = req.params;
+    console.log(`find by id ${itemId}`);
+    
+    const result = await findController.findById(itemId)
+    res.status(200).json(result);
+  } catch (error) {
+    const merrsageError: MessageError = new MessageError(404, `Resource not found ${error}`);
+    res.status(merrsageError.getMessageError().status).json(merrsageError);
+  }
+})
+
+// POST
 app.post("/", async (req: Request, res: Response) => {
   try {
     await createController.create(req.body);
@@ -45,10 +60,11 @@ app.post("/", async (req: Request, res: Response) => {
   }
 });
 
+// DELETE
 app.delete("/", async (req: Request, res: Response) => {
   try {
     await deleteController.delete();
-    res.send(200).json();
+    res.status(200).json();
   } catch (error) {
     const messageError: MessageError = new MessageError(403, `Delete all element failed ${error}`);
     res.status(messageError.getMessageError().status).json(messageError);

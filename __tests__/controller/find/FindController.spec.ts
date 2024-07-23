@@ -1,78 +1,56 @@
 import { FindController } from "../../../src/controller/find/FindController";
-import { FindService } from "../../../src/service/find/FindService";
-import { TodoStatus } from "../../../src/model/TodoStatus";
-import { FindRepository } from "../../../src/repository/find/FindRepository";
-import { FindFromFileRepository } from "../../../src/repository/find/FindFromFileRepository";
 import { TodoElementModel } from "../../../src/model/TodoElement";
+import { IFindService } from "../../../src/service/find/IFindService";
 
-jest.mock(".../../../src/repository/find/FindRepository");
-jest.mock("../../../src/repository/find/FindFromFileRepository");
 jest.mock("../../../src/service/find/FindService");
 
 describe("FindController", () => {
   let findController: FindController;
   // Create mock of services
-  let findService: jest.Mocked<FindService>;
-  let findFromFileService: jest.Mocked<FindService>;
+  let findService: jest.Mocked<IFindService>;
 
   beforeEach(() => {
-    // load repositories
-    const findRepository = new FindRepository();
-    const findFromFileRepository = new FindFromFileRepository();
-
-    // assigned to services mock new instance with repository
-    findService = new FindService(findRepository) as jest.Mocked<FindService>;
-    findFromFileService = new FindService(
-      findFromFileRepository
-    ) as jest.Mocked<FindService>;
-
     findController = new FindController();
 
-    // override services in controller with mock 
-    (findController as any).findService = findService;
-    (findController as any).findFromFileService = findFromFileService;
+    // Mock
+    findService = {
+      findAll: jest.fn(),
+      findFileFromFile: jest.fn(),
+      findById: jest.fn(),
+    };
   });
 
   it("should find all element", async () => {
     // given
-    const mockResult: TodoElementModel[] = [
-      {
-        _id: "abc",
-        title: "Title 1",
-        description: "lorem ipsum",
-        status: TodoStatus.COMPLETED,
-        createdAt: new Date()
-      },
-    ];
-
-    findService.findAll.mockResolvedValue(mockResult);
+    const mockResult: TodoElementModel[] = await findService.findAll();
 
     // when
     const result = await findController.findAll();
 
     // then
-    expect(result).toHaveLength(mockResult.length);
     expect(result).toEqual(mockResult);
   });
 
   it("should return all element when read from file", async () => {
     // given
-    const mockResult: TodoElementModel[] = [
-      {
-        _id: "abc",
-        title: "Title 1",
-        description: "lorem ipsum",
-        status: TodoStatus.COMPLETED,
-        createdAt: new Date()
-      },
-    ];
-    findFromFileService.findFileFromFile.mockResolvedValue(mockResult);
+    const mockResult: TodoElementModel[] = await findService.findFileFromFile();
 
     // when
     const result = await findController.findFromFile();
 
     // then
-    expect(result).toHaveLength(mockResult.length);
+    expect(result).toEqual(mockResult);
+  });
+
+  it("should return item by id", async () => {
+    // given
+    const itemId = "::itemId::";
+    const mockResult: TodoElementModel = await findService.findById(itemId);
+
+    // when
+    const result = await findController.findById(itemId);
+
+    // then
     expect(result).toEqual(mockResult);
   });
 });

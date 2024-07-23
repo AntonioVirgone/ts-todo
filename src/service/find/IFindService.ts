@@ -4,4 +4,6 @@ export interface IFindService {
   findAll(): Promise<TodoElementModel[]>;
 
   findFileFromFile(): Promise<TodoElementModel[]>;
+
+  findById(itemId: string): Promise<TodoElementModel>;
 }
