@@ -8,19 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateController = void 0;
-const CreateRepository_1 = require("../../repository/create/CreateRepository");
-const CreateService_1 = require("../../service/create/CreateService");
-class CreateController {
-    constructor() {
-        this.createRepository = new CreateRepository_1.CreateRepository();
-        this.createService = new CreateService_1.CreateService(this.createRepository);
-    }
-    create(items) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.createService.create(items);
-        });
-    }
+exports.write = write;
+const path_1 = __importDefault(require("path"));
+const fs_1 = require("fs");
+const filePath = path_1.default.join(__dirname, "../../resources");
+function write(items) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield fs_1.promises.writeFile(`${filePath}/todo.json`, JSON.stringify(items), "utf-8");
+    });
 }
-exports.CreateController = CreateController;

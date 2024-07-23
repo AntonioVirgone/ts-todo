@@ -1,14 +1,13 @@
 import { TodoElementModel } from "../../model/TodoElement";
+import { read } from "../../utils/ReadFile";
 import { IFindRepository } from "./IFindRepository";
-import { promises as fs } from "fs";
-import path from "path";
 
 export class FindFromFileRepository implements IFindRepository {
   async findAll(): Promise<TodoElementModel[]> {
-    const filePath = path.join(__dirname, "../../../resources");
+    console.log("find from file");
+    
     try {
-      const data = await fs.readFile(`${filePath}/todo.json`, "utf-8");
-      return JSON.parse(data);
+      return JSON.parse(await read());
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");

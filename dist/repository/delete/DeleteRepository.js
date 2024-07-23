@@ -8,23 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteRepository = void 0;
-const path_1 = __importDefault(require("path"));
-const fs_1 = require("fs");
 const FindFromFileRepository_1 = require("../find/FindFromFileRepository");
+const WriteFile_1 = require("../../utils/WriteFile");
 class DeleteRepository {
     constructor() {
         this.findRepository = new FindFromFileRepository_1.FindFromFileRepository();
-        this.filePath = path_1.default.join(__dirname, "../../../resources");
     }
     delete() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield fs_1.promises.writeFile(`${this.filePath}/todo.json`, JSON.stringify([]), "utf-8");
+                yield (0, WriteFile_1.write)([]);
             }
             catch (error) {
                 console.error(error);
@@ -34,9 +29,15 @@ class DeleteRepository {
     }
     deleteById(itemId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const items = yield this.findRepository.findAll();
-            const newItems = items.filter(item => item._id !== itemId);
-            yield fs_1.promises.writeFile(`${this.filePath}/todo.json`, JSON.stringify(newItems), "utf-8");
+            try {
+                const items = yield this.findRepository.findAll();
+                const newItems = items.filter((item) => item._id !== itemId);
+                yield (0, WriteFile_1.write)(newItems);
+            }
+            catch (error) {
+                console.error(error);
+                throw new Error(`Error deleted item with id ${itemId}`);
+            }
         });
     }
 }

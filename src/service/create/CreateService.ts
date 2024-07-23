@@ -9,7 +9,7 @@ export class CreateService implements ICreateService {
         this.createRepository = createRepository;
     }
 
-    async create(item: TodoElementModel): Promise<void> {
+    async create(item: TodoElementModel | TodoElementModel[]): Promise<void> {
         return await this.createRepository.create(item);
     }
 }
