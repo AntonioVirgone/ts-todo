@@ -6,11 +6,14 @@ import { ICreateController } from "./controller/create/ICreateController";
 import { CreateController } from "./controller/create/CreateController";
 import { IDeleteController } from "./controller/delete/IDeleteController";
 import { DeleteController } from "./controller/delete/DeleteController";
+import { ICreateListController } from "./controller/createList/ICreateListController";
+import { CreateListController } from "./controller/createList/CreateListController";
 
 const app = express();
 const port = 3010;
 const findController: IFindController = new FindController();
 const createController: ICreateController = new CreateController();
+const createListController: ICreateListController = new CreateListController();
 const deleteController: IDeleteController = new DeleteController();
 
 app.use(express.json());
@@ -59,6 +62,17 @@ app.post("/", async (req: Request, res: Response) => {
     res.status(merrsageError.getMessageError().status).json(merrsageError);
   }
 });
+
+app.post("/list/:listName", async (req: Request, res: Response) => {
+  try {
+    const { listName } = req.params;
+    await createListController.create(listName);
+    res.status(201).json();
+  } catch (error) {
+    const merrsageError: MessageError = new MessageError(409, `Create list failed ${error}`);
+    res.status(merrsageError.getMessageError().status).json(merrsageError);
+  }
+})
 
 // DELETE
 app.delete("/", async (req: Request, res: Response) => {

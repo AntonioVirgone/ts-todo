@@ -27,7 +27,7 @@ describe("CreateController", () => {
       status: TodoStatus.COMPLETED,
       createdAt: new Date()
     };
-    createService.create(newItem);
+    await createService.create(newItem);
 
     // when
     await createController.create(newItem);
