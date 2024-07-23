@@ -13,7 +13,7 @@ describe("CreateService", () => {
     };
 
     // inject mock repository
-    createService = new CreateService(createRepository);
+    createService = new CreateService();
   });
 
   it("should create new element", async () => {
@@ -23,12 +23,39 @@ describe("CreateService", () => {
       title: "Title 1",
       description: "lorem ipsum",
       status: TodoStatus.COMPLETED,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
     createRepository.create(item);
 
     // when
     await createService.create(item);
+
+    // then
+    expect(createRepository.create).toHaveBeenCalled();
+  });
+
+  it("should create multiple element", async () => {
+    // given
+    const items = [
+      {
+        _id: "abc",
+        title: "Title 1",
+        description: "lorem ipsum",
+        status: TodoStatus.COMPLETED,
+        createdAt: new Date(),
+      },
+      {
+        _id: "abc",
+        title: "Title 1",
+        description: "lorem ipsum",
+        status: TodoStatus.COMPLETED,
+        createdAt: new Date(),
+      },
+    ];
+    createRepository.create(items);
+
+    // when
+    await createService.create(items);
 
     // then
     expect(createRepository.create).toHaveBeenCalled();
