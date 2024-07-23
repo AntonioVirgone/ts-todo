@@ -17,9 +17,9 @@ class CreateController {
         this.createRepository = new CreateRepository_1.CreateRepository();
         this.createService = new CreateService_1.CreateService(this.createRepository);
     }
-    create(item) {
+    create(items) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.createService.create(item);
+            this.createService.create(items);
         });
     }
 }

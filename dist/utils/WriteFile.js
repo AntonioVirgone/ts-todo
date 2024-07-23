@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.write = write;
 const path_1 = __importDefault(require("path"));
 const fs_1 = require("fs");
-const filePath = path_1.default.join(__dirname, "../../../resources");
+const filePath = path_1.default.join(__dirname, "../../resources");
 function write(items) {
     return __awaiter(this, void 0, void 0, function* () {
         yield fs_1.promises.writeFile(`${filePath}/todo.json`, JSON.stringify(items), "utf-8");

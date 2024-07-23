@@ -19,10 +19,19 @@ class CreateRepository {
     }
     create(item) {
         return __awaiter(this, void 0, void 0, function* () {
+            let data = yield this.findRepository.findAll();
+            if (Array.isArray(item)) {
+                this.addMultipleItem(item, data);
+            }
+            else {
+                this.addSingleItem(item, data);
+            }
+        });
+    }
+    addSingleItem(item, data) {
+        return __awaiter(this, void 0, void 0, function* () {
             try {
-                const newItem = Object.assign(Object.assign({}, item), { _id: Math.random().toString(36), status: TodoStatus_1.TodoStatus.PENDING, createdAt: new Date() });
-                let data = yield this.findRepository.findAll();
-                data.push(newItem);
+                data.push(this.updateItem(item));
                 yield (0, WriteFile_1.write)(data);
             }
             catch (error) {
@@ -30,6 +39,23 @@ class CreateRepository {
                 throw new Error("Error reading file");
             }
         });
+    }
+    addMultipleItem(items, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const updatedItem = items.map((item) => this.updateItem(item));
+                const concatenatedArray = data.concat(updatedItem);
+                yield (0, WriteFile_1.write)(concatenatedArray);
+            }
+            catch (error) {
+                console.error(error);
+                throw new Error("Error reading file");
+            }
+        });
+    }
+    // Update item with id, status and create date time
+    updateItem(item) {
+        return Object.assign(Object.assign({}, item), { _id: Math.random().toString(36), status: TodoStatus_1.TodoStatus.PENDING, createdAt: new Date() });
     }
 }
 exports.CreateRepository = CreateRepository;

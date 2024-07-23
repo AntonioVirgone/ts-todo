@@ -15,9 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.read = read;
 const path_1 = __importDefault(require("path"));
 const fs_1 = require("fs");
-const filePath = path_1.default.join(__dirname, "../../../resources");
+const filePath = path_1.default.join(__dirname, "../../resources");
 function read() {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(__dirname);
+        console.log(filePath);
         return yield fs_1.promises.readFile(`${filePath}/todo.json`, "utf-8");
     });
 }

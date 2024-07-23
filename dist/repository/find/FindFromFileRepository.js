@@ -14,6 +14,7 @@ const ReadFile_1 = require("../../utils/ReadFile");
 class FindFromFileRepository {
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("find from file");
             try {
                 return JSON.parse(yield (0, ReadFile_1.read)());
             }

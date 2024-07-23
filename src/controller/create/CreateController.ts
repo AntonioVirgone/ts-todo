@@ -10,7 +10,7 @@ export class CreateController implements ICreateController {
     this.createRepository
   );
 
-  async create(item: TodoElementModel): Promise<void> {
-    this.createService.create(item);
+  async create(items: TodoElementModel | TodoElementModel[]): Promise<void> {
+    this.createService.create(items);
   }
 }
