@@ -13,7 +13,7 @@ describe("FindService", () => {
     };
 
     // Inject mock in service
-    findService = new FindService(findRepository);
+    findService = new FindService();
   });
 
   it("should find all element", async () => {
