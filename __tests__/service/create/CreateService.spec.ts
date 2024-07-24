@@ -21,6 +21,7 @@ describe("CreateService", () => {
     // given
     const item = {
       _id: "abc",
+      userCode: "abc",
       title: "Title 1",
       description: "lorem ipsum",
       status: TodoStatus.COMPLETED,
@@ -40,6 +41,7 @@ describe("CreateService", () => {
     const items = [
       {
         _id: "abc",
+        userCode: "abc",
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,
@@ -47,6 +49,7 @@ describe("CreateService", () => {
       },
       {
         _id: "abc",
+        userCode: "abc",
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,
