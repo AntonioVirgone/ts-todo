@@ -1,13 +1,17 @@
+import path from "path";
 import { TodoElementModel } from "../../model/TodoElement";
 import { ICreateRepository } from "./ICreateRepository";
 import { FindFromFileRepository } from "../find/FindFromFileRepository";
 import { TodoStatus } from "../../model/TodoStatus";
-import { write } from "../../utils/WriteFile";
+import { write, generateRandomString } from "ts-av-common";
 
 export class CreateRepository implements ICreateRepository {
   private findRepository: FindFromFileRepository = new FindFromFileRepository();
 
-  async create(userCode: string, item: TodoElementModel | TodoElementModel[]): Promise<void> {
+  async create(
+    userCode: string,
+    item: TodoElementModel | TodoElementModel[]
+  ): Promise<void> {
     let data: TodoElementModel[] = await this.findRepository.findAll(userCode);
     if (Array.isArray(item)) {
       this.addMultipleItem(userCode, item, data);
@@ -24,7 +28,7 @@ export class CreateRepository implements ICreateRepository {
     try {
       data.push(this.updateItem(item));
 
-      await write(userCode, data);
+      await write(`${path.join(__dirname, "../../../resources")}/${userCode}.json`, data);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
@@ -40,7 +44,7 @@ export class CreateRepository implements ICreateRepository {
       const updatedItem = items.map((item) => this.updateItem(item));
       const concatenatedArray = data.concat(updatedItem);
 
-      await write(userCode, concatenatedArray);
+      await write(`${path.join(__dirname, "../../../resources")}/${userCode}.json`, concatenatedArray);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
@@ -51,7 +55,7 @@ export class CreateRepository implements ICreateRepository {
   private updateItem(item: TodoElementModel) {
     return {
       ...item,
-      _id: Math.random().toString(36),
+      _id: generateRandomString(36),
       status: TodoStatus.PENDING,
       createdAt: new Date(),
     };

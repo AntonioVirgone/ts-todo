@@ -1,11 +1,13 @@
+import path from "path";
 import { TodoElementModel } from "../../model/TodoElement";
-import { read } from "../../utils/ReadFile";
+import { readFile } from "ts-av-common";
 import { IFindRepository } from "./IFindRepository";
 
 export class FindFromFileRepository implements IFindRepository {
   async findAll(userCode: string): Promise<TodoElementModel[]> {
     try {
-      return JSON.parse(await read(userCode));
+      const filePath = await readFile(`${path.join(__dirname, "../../../resources")}/${userCode}.json`);
+      return JSON.parse(filePath);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
@@ -14,7 +16,7 @@ export class FindFromFileRepository implements IFindRepository {
 
   async findById(userCode: string, itemId: string): Promise<TodoElementModel> {
     try {
-      const itemList: TodoElementModel[] = await JSON.parse(await read(userCode));
+      const itemList: TodoElementModel[] = await JSON.parse(await readFile(`${path.join(__dirname, "../../../resources")}/${userCode}.json`));
       const itemListFiltered = itemList.filter((item) => item._id === itemId);
 
       if (itemListFiltered.length > 0) {

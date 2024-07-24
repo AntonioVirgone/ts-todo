@@ -1,6 +1,6 @@
-import { checkFileExists } from "../../utils/ReadFile";
+import path from "path";
+import { createFile, checkFileExists } from "ts-av-common";
 import { ICreateListRepository } from "./ICreateListRepository";
-import { createFile } from "../../utils/WriteFile";
 
 export class CreateListRepository implements ICreateListRepository {
     async create(listName: string): Promise<void> {
@@ -8,6 +8,6 @@ export class CreateListRepository implements ICreateListRepository {
             throw new Error(`File ${listName}.json already exist`);
         }
 
-        return await createFile(listName);
+        return await createFile(`${path.join(__dirname, "../../../resources")}/${listName}.json`);
     }
 }
