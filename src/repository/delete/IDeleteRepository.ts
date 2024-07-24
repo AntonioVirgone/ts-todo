@@ -1,4 +1,4 @@
 export interface IDeleteRepository {
-    delete(): Promise<void>
-    deleteById(itemId: string): Promise<void>
+    delete(userCode: string): Promise<void>
+    deleteById(userCode: string, itemId: string): Promise<void>
 }

@@ -7,6 +7,7 @@ export class FindRepository implements IFindRepository {
     return [
       {
         _id: "abc",
+        userCode: "abc",
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,
@@ -18,6 +19,7 @@ export class FindRepository implements IFindRepository {
   async findById(itemId: string): Promise<TodoElementModel> {
     return {
       _id: "abc",
+      userCode: "abc",
       title: "Title 1",
       description: "lorem ipsum",
       status: TodoStatus.COMPLETED,

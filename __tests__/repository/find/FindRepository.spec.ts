@@ -13,6 +13,7 @@ describe("FindRepository", () => {
     const mockResult = [
       {
         _id: "abc",
+        userCode: "abc",
         title: "Title 1",
         description: "lorem ipsum",
         status: TodoStatus.COMPLETED,

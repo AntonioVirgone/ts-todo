@@ -6,7 +6,7 @@ import { ICreateController } from "./ICreateController";
 export class CreateController implements ICreateController {
   private createService: ICreateService = new CreateService();
 
-  async create(items: TodoElementModel | TodoElementModel[]): Promise<void> {
-    this.createService.create(items);
+  async create(userCode: string, items: TodoElementModel | TodoElementModel[]): Promise<void> {
+    this.createService.create(userCode, items);
   }
 }

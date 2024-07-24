@@ -29,9 +29,10 @@ app.get("/", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/json", async (req: Request, res: Response) => {
+app.get("/user/:userCode", async (req: Request, res: Response) => {
   try {
-    const result = await findController.findFromFile();
+    const { userCode } = req.params;
+    const result = await findController.findFromFile(userCode);
     res.status(200).json(result);
   } catch (error) {
     const merrsageError: MessageError = new MessageError(404, `File not found ${error}`);
@@ -39,12 +40,12 @@ app.get("/json", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/:itemId", async (req: Request, res: Response) => {
+app.get("/user/:userCode/item/:itemId", async (req: Request, res: Response) => {
   try {
-    const { itemId } = req.params;
+    const { userCode, itemId } = req.params;
     console.log(`find by id ${itemId}`);
     
-    const result = await findController.findById(itemId)
+    const result = await findController.findById(userCode, itemId)
     res.status(200).json(result);
   } catch (error) {
     const merrsageError: MessageError = new MessageError(404, `Resource not found ${error}`);
@@ -53,9 +54,10 @@ app.get("/:itemId", async (req: Request, res: Response) => {
 })
 
 // POST
-app.post("/", async (req: Request, res: Response) => {
+app.post("/user/:userCode", async (req: Request, res: Response) => {
   try {
-    await createController.create(req.body);
+    const { userCode } = req.params;
+    await createController.create(userCode, req.body);
     res.status(201).json();
   } catch (error) {
     const merrsageError: MessageError = new MessageError(400, `Input nota valid ${error}`);
@@ -63,10 +65,10 @@ app.post("/", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/list/:listName", async (req: Request, res: Response) => {
+app.post("/user/:userCode/list", async (req: Request, res: Response) => {
   try {
-    const { listName } = req.params;
-    await createListController.create(listName);
+    const { userCode } = req.params;
+    await createListController.create(userCode);
     res.status(201).json();
   } catch (error) {
     const merrsageError: MessageError = new MessageError(409, `Create list failed ${error}`);
@@ -75,9 +77,10 @@ app.post("/list/:listName", async (req: Request, res: Response) => {
 })
 
 // DELETE
-app.delete("/", async (req: Request, res: Response) => {
+app.delete("/user/:userCode", async (req: Request, res: Response) => {
   try {
-    await deleteController.delete();
+    const { userCode } = req.params;
+    await deleteController.delete(userCode);
     res.status(200).json();
   } catch (error) {
     const messageError: MessageError = new MessageError(403, `Delete all element failed ${error}`);
@@ -85,10 +88,10 @@ app.delete("/", async (req: Request, res: Response) => {
   }
 });
 
-app.delete("/:itemId", async (req: Request, res: Response) => {
+app.delete("/user/:userCode/item/:itemId", async (req: Request, res: Response) => {
   try {
-    const { itemId } = req.params;
-    await deleteController.deleteById(itemId);
+    const { userCode, itemId } = req.params;
+    await deleteController.deleteById(userCode, itemId);
     res.status(200).json();
   } catch (error) {
     const messageError: MessageError = new MessageError(403, `Delete element failed ${error}`)

@@ -8,11 +8,11 @@ export class DeleteService implements IDeleteService {
     this.deleteRepository = deleteRepository;
   }
 
-  delete(): Promise<void> {
-    return this.deleteRepository.delete();
+  delete(userCode: string): Promise<void> {
+    return this.deleteRepository.delete(userCode);
   }
 
-  deleteById(itemId: string): Promise<void> {
-    return this.deleteRepository.deleteById(itemId);
+  deleteById(userCode: string, itemId: string): Promise<void> {
+    return this.deleteRepository.deleteById(userCode, itemId);
   }
 }
