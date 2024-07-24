@@ -7,23 +7,24 @@ import { write } from "../../utils/WriteFile";
 export class CreateRepository implements ICreateRepository {
   private findRepository: FindFromFileRepository = new FindFromFileRepository();
 
-  async create(item: TodoElementModel | TodoElementModel[]): Promise<void> {
-    let data: TodoElementModel[] = await this.findRepository.findAll();
+  async create(userCode: string, item: TodoElementModel | TodoElementModel[]): Promise<void> {
+    let data: TodoElementModel[] = await this.findRepository.findAll(userCode);
     if (Array.isArray(item)) {
-      this.addMultipleItem(item, data);
+      this.addMultipleItem(userCode, item, data);
     } else {
-      this.addSingleItem(item, data);
+      this.addSingleItem(userCode, item, data);
     }
   }
 
   private async addSingleItem(
+    userCode: string,
     item: TodoElementModel,
     data: TodoElementModel[]
   ) {
     try {
       data.push(this.updateItem(item));
 
-      await write(data);
+      await write(userCode, data);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
@@ -31,6 +32,7 @@ export class CreateRepository implements ICreateRepository {
   }
 
   private async addMultipleItem(
+    userCode: string,
     items: TodoElementModel[],
     data: TodoElementModel[]
   ) {
@@ -38,7 +40,7 @@ export class CreateRepository implements ICreateRepository {
       const updatedItem = items.map((item) => this.updateItem(item));
       const concatenatedArray = data.concat(updatedItem);
 
-      await write(concatenatedArray);
+      await write(userCode, concatenatedArray);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");

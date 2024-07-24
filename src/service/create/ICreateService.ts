@@ -1,5 +1,5 @@
 import { TodoElementModel } from "../../model/TodoElement";
 
 export interface ICreateService {
-    create(item: TodoElementModel | TodoElementModel[]): Promise<void>;
+    create(userCode: string, item: TodoElementModel | TodoElementModel[]): Promise<void>;
 }

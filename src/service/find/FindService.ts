@@ -9,14 +9,14 @@ export class FindService implements IFindService {
   private findFromFileRepository: IFindRepository = new FindFromFileRepository();
 
   async findAll(): Promise<TodoElementModel[]> {
-    return await this.findRepository.findAll();
+    return await this.findRepository.findAll("");
   }
 
-  async findFileFromFile(): Promise<TodoElementModel[]> {
-    return await this.findFromFileRepository.findAll();
+  async findFileFromFile(userCode: string): Promise<TodoElementModel[]> {
+    return await this.findFromFileRepository.findAll(userCode);
   }
 
-  async findById(itemId: string): Promise<TodoElementModel> {
-    return await this.findFromFileRepository.findById(itemId);
+  async findById(userCode: string, itemId: string): Promise<TodoElementModel> {
+    return await this.findFromFileRepository.findById(userCode, itemId);
   }
 }

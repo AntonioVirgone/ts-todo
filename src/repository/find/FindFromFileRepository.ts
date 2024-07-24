@@ -3,18 +3,18 @@ import { read } from "../../utils/ReadFile";
 import { IFindRepository } from "./IFindRepository";
 
 export class FindFromFileRepository implements IFindRepository {
-  async findAll(): Promise<TodoElementModel[]> {
+  async findAll(userCode: string): Promise<TodoElementModel[]> {
     try {
-      return JSON.parse(await read());
+      return JSON.parse(await read(userCode));
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
     }
   }
 
-  async findById(itemId: string): Promise<TodoElementModel> {
+  async findById(userCode: string, itemId: string): Promise<TodoElementModel> {
     try {
-      const itemList: TodoElementModel[] = await JSON.parse(await read());
+      const itemList: TodoElementModel[] = await JSON.parse(await read(userCode));
       const itemListFiltered = itemList.filter((item) => item._id === itemId);
 
       if (itemListFiltered.length > 0) {

@@ -8,11 +8,11 @@ export class DeleteController implements IDeleteController {
     this.deleteRepository
   );
 
-  async delete(): Promise<void> {
-    return await this.deleteService.delete();
+  async delete(userCode: string): Promise<void> {
+    return await this.deleteService.delete(userCode);
   }
 
-  async deleteById(itemId: string): Promise<void> {
-    return await this.deleteService.deleteById(itemId); 
+  async deleteById(userCode: string, itemId: string): Promise<void> {
+    return await this.deleteService.deleteById(userCode, itemId); 
   }
 }

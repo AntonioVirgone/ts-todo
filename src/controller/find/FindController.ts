@@ -10,11 +10,11 @@ export class FindController implements IFindController {
     return await this.findService.findAll();
   }
 
-  async findFromFile(): Promise<TodoElementModel[]> {
-    return await this.findService.findFileFromFile();
+  async findFromFile(userCode: string): Promise<TodoElementModel[]> {
+    return await this.findService.findFileFromFile(userCode);
   }
 
-  async findById(itemId: string): Promise<TodoElementModel> {
-    return await this.findService.findById(itemId);
+  async findById(userCode: string, itemId: string): Promise<TodoElementModel> {
+    return await this.findService.findById(userCode, itemId);
   }
 }
