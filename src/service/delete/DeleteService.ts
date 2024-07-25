@@ -1,5 +1,5 @@
-import { DeleteRepository } from "../../repository/data/delete/DeleteRepository";
-import { IDeleteRepository } from "../../repository/data/delete/IDeleteRepository";
+import { DeleteRepository } from "../../repository/delete/DeleteRepository";
+import { IDeleteRepository } from "../../repository/delete/IDeleteRepository";
 import { IDeleteService } from "./IDeleteService";
 
 export class DeleteService implements IDeleteService {

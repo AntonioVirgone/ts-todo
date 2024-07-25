@@ -1,5 +1,5 @@
 import path from "path";
-import { TodoElementModel } from "../../../model/TodoElement";
+import { TodoElementModel } from "../../model/TodoElement";
 import { readFile } from "ts-av-common";
 import { IFindRepository } from "./IFindRepository";
 

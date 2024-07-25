@@ -1,7 +1,7 @@
 import { TodoElementModel } from "../../model/TodoElement";
-import { FindFromFileRepository } from "../../repository/data/find/FindFromFileRepository";
-import { FindRepository } from "../../repository/data/find/FindRepository";
-import { IFindRepository } from "../../repository/data/find/IFindRepository";
+import { FindFromFileRepository } from "../../repository/find/FindFromFileRepository";
+import { FindRepository } from "../../repository/find/FindRepository";
+import { IFindRepository } from "../../repository/find/IFindRepository";
 import { IFindService } from "./IFindService";
 
 export class FindService implements IFindService {

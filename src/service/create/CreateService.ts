@@ -1,6 +1,6 @@
 import { TodoElementModel } from "../../model/TodoElement";
-import { CreateRepository } from "../../repository/data/create/CreateRepository";
-import { ICreateRepository } from "../../repository/data/create/ICreateRepository";
+import { CreateRepository } from "../../repository/create/CreateRepository";
+import { ICreateRepository } from "../../repository/create/ICreateRepository";
 import { ICreateService } from "./ICreateService";
 
 export class CreateService implements ICreateService {
