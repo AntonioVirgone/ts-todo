@@ -28,7 +28,7 @@ export class CreateRepository implements ICreateRepository {
     try {
       data.push(this.updateItem(item));
 
-      await write(`${path.join(__dirname, "../../../resources")}/${userCode}.json`, data);
+      await write(`${path.join(__dirname, "../../../../resources")}/${userCode}.json`, data);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
@@ -44,7 +44,7 @@ export class CreateRepository implements ICreateRepository {
       const updatedItem = items.map((item) => this.updateItem(item));
       const concatenatedArray = data.concat(updatedItem);
 
-      await write(`${path.join(__dirname, "../../../resources")}/${userCode}.json`, concatenatedArray);
+      await write(`${path.join(__dirname, "../../../../resources")}/${userCode}.json`, concatenatedArray);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
