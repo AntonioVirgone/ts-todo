@@ -1,7 +1,7 @@
-import { ICreateListRepository } from "../../../src/repository/createList/ICreateListRepository";
+import { ICreateListRepository } from "../../../src/repository/data/createList/ICreateListRepository";
 import { CreateListService } from "../../../src/service/createList/CreateListService";
 
-jest.mock("../../../src/repository/createList/CreateListRepository");
+jest.mock("../../../src/repository/data/createList/CreateListRepository");
 
 describe("CreateListService", () => {
   let createListService: CreateListService;

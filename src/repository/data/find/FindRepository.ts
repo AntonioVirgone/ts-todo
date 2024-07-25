@@ -1,5 +1,5 @@
-import { TodoElementModel } from "../../model/TodoElement";
-import { TodoStatus } from "../../model/TodoStatus";
+import { TodoElementModel } from "../../../model/TodoElement";
+import { TodoStatus } from "../../../model/TodoStatus";
 import { IFindRepository } from "./IFindRepository";
 
 export class FindRepository implements IFindRepository {
