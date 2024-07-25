@@ -9,6 +9,34 @@ describe("CreateController", () => {
   let createController: CreateController;
   let createService: jest.Mocked<ICreateService>;
 
+  const userCode = "::userCode::"
+  const newItem: TodoElementModel = {
+    _id: "abc",
+    userCode: "abc",
+    title: "Title 1",
+    description: "lorem ipsum",
+    status: TodoStatus.COMPLETED,
+    createdAt: new Date()
+  };
+  const items = [
+    {
+      _id: "abc",
+      userCode: "abc",
+      title: "Title 1",
+      description: "lorem ipsum",
+      status: TodoStatus.COMPLETED,
+      createdAt: new Date()
+    },
+    {
+      _id: "abc",
+      userCode: "abc",
+      title: "Title 1",
+      description: "lorem ipsum",
+      status: TodoStatus.COMPLETED,
+      createdAt: new Date()
+    }
+  ];
+
   beforeEach(() => {
     createController = new CreateController();
 
@@ -20,18 +48,10 @@ describe("CreateController", () => {
 
   it("should create new element", async () => {
     // given
-    let newItem: TodoElementModel = {
-      _id: "abc",
-      userCode: "abc",
-      title: "Title 1",
-      description: "lorem ipsum",
-      status: TodoStatus.COMPLETED,
-      createdAt: new Date()
-    };
-    await createService.create(newItem);
+    await createService.create(userCode, newItem);
 
     // when
-    await createController.create(newItem);
+    await createController.create(userCode, newItem);
 
     // then
     expect(createService.create).toHaveBeenCalled();
@@ -39,28 +59,10 @@ describe("CreateController", () => {
 
   it("should create multiple element", async () => {
     // given
-    const items = [
-      {
-        _id: "abc",
-        userCode: "abc",
-        title: "Title 1",
-        description: "lorem ipsum",
-        status: TodoStatus.COMPLETED,
-        createdAt: new Date()
-      },
-      {
-        _id: "abc",
-        userCode: "abc",
-        title: "Title 1",
-        description: "lorem ipsum",
-        status: TodoStatus.COMPLETED,
-        createdAt: new Date()
-      }
-    ];
-    createService.create(items);
+    createService.create(userCode, items);
 
     // when
-    await createController.create(items);
+    await createController.create(userCode, items);
 
     // then
     expect(createService.create).toHaveBeenCalled();

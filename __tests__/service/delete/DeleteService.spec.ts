@@ -1,9 +1,13 @@
-import { IDeleteRepository } from "../../../src/repository/delete/IDeleteRepository";
+import { IDeleteRepository } from "../../../src/repository/data/delete/IDeleteRepository";
 import { DeleteService } from "../../../src/service/delete/DeleteService";
+
+jest.mock("../../../src/repository/data/delete/DeleteRepository");
 
 describe("DeleteService", () => {
     let deleteService: DeleteService;
     let deleteRepository: jest.Mocked<IDeleteRepository>;
+
+    const userCode = "::userCode::"
 
     beforeEach(async () => {
         // mock repository
@@ -13,15 +17,15 @@ describe("DeleteService", () => {
         };
 
         // inject mock repository
-        deleteService = new DeleteService(deleteRepository);
+        deleteService = new DeleteService();
     });
 
     it("should delete all element", async () => {
         // given
-        deleteRepository.delete();
+        deleteRepository.delete(userCode);
 
         // when
-        await deleteService.delete();
+        await deleteService.delete(userCode);
 
         // them
         expect(deleteRepository.delete).toHaveBeenCalled();
@@ -30,10 +34,10 @@ describe("DeleteService", () => {
     it("should delete single element by id", async () => {
         // given
         const itemId: string = "::itemId::"; 
-        deleteRepository.deleteById(itemId);
+        deleteRepository.deleteById(userCode, itemId);
 
         // when
-        await deleteService.deleteById(itemId);
+        await deleteService.deleteById(userCode, itemId);
 
         // then
         expect(deleteRepository.deleteById).toHaveBeenCalled();

@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { FindController } from "./controller/find/FindController";
 import { IFindController } from "./controller/find/IFindController";
 import { MessageError } from "./model/MessageError";
@@ -29,10 +29,9 @@ app.get("/", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/user/:userCode", async (req: Request, res: Response) => {
+app.get("/user/:userCode", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { userCode } = req.params;
-    const result = await findController.findFromFile(userCode);
+    const result = await findController.findFromFile(req, res, next);
     res.status(200).json(result);
   } catch (error) {
     const merrsageError: MessageError = new MessageError(404, `File not found ${error}`);

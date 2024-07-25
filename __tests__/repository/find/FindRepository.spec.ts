@@ -1,4 +1,4 @@
-import { FindRepository } from "../../../src/repository/find/FindRepository";
+import { FindRepository } from "../../../src/repository/data/find/FindRepository";
 import { TodoStatus } from "../../../src/model/TodoStatus";
 
 describe("FindRepository", () => {

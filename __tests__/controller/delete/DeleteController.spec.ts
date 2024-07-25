@@ -1,46 +1,44 @@
 import { DeleteController } from "../../../src/controller/delete/DeleteController";
-import { DeleteService } from "../../../src/service/delete/DeleteService";
-import { DeleteRepository } from "../../../src/repository/delete/DeleteRepository";
+import { IDeleteService } from "../../../src/service/delete/IDeleteService";
 
 jest.mock("../../../src/service/delete/DeleteService");
-jest.mock(".../../../src/repository/delete/DeleteRepository");
 
 describe("DeleteController", () => {
-    let deleteController: DeleteController;
-    let deleteService: jest.Mocked<DeleteService>;
+  const userCode = "::userCode::";
+  const itemId = "::itemId::";
 
-    beforeEach(() => {
-        deleteController = new DeleteController();
+  let deleteController: DeleteController;
+  let deleteService: jest.Mocked<IDeleteService>;
 
-        // mock repository
-        const deleteRepository = new DeleteRepository();
+  beforeEach(() => {
+    deleteController = new DeleteController();
 
-        // inject mock in service
-        deleteService = new DeleteService(deleteRepository) as jest.Mocked<DeleteService>;
+    // inject mock in service
+    deleteService = {
+      delete: jest.fn(),
+      deleteById: jest.fn(),
+    };
+  });
 
-        // override service
-        (deleteController as any).deleteService = deleteService;
-    });
+  it("should delete all element", async () => {
+    // given
+    deleteService.delete(userCode);
 
-    it("should delete all element", async () => {
-        // given
-        deleteService.delete.mockResolvedValue(undefined);
+    // when
+    await deleteController.delete(userCode);
 
-        // when
-        await deleteController.delete();
+    // then
+    expect(deleteService.delete).toHaveBeenCalled();
+  });
 
-        // then
-        expect(deleteService.delete).toHaveBeenCalled()
-    });
+  it("should delete element by id", async () => {
+    // given
+    deleteService.deleteById(userCode, itemId);
 
-    it("should delete element by id", async () => {
-        // given
-        deleteService.deleteById.mockResolvedValue(undefined);
+    // when
+    await deleteController.deleteById(userCode, itemId);
 
-        // when
-        await deleteController.deleteById("::itemId::");
-
-        // then
-        expect(deleteService.deleteById).toHaveBeenCalled();
-    })
+    // then
+    expect(deleteService.deleteById).toHaveBeenCalled();
+  });
 });

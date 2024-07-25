@@ -1,4 +1,4 @@
-import { TodoElementModel } from "../../model/TodoElement";
+import { TodoElementModel } from "../../../model/TodoElement";
 
 export interface IFindRepository {
   findAll(userCode: string): Promise<TodoElementModel[]>;
