@@ -18,6 +18,7 @@ export class FindController implements IFindController {
     return await this.findService.findFileFromFile(userCode);
   }
 
+  @Auth
   async findById(userCode: string, itemId: string): Promise<TodoElementModel> {
     return await this.findService.findById(userCode, itemId);
   }
