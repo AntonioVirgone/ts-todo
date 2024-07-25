@@ -8,6 +8,6 @@ export class CreateListRepository implements ICreateListRepository {
             throw new Error(`File ${listName}.json already exist`);
         }
 
-        return await createFile(`${path.join(__dirname, "../../../resources")}/${listName}.json`);
+        return await createFile(`${path.join(__dirname, "../../../../resources")}/${listName}.json`);
     }
 }

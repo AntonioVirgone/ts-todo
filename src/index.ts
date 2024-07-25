@@ -42,7 +42,6 @@ app.get("/user/:userCode", async (req: Request, res: Response, next: NextFunctio
 app.get("/user/:userCode/item/:itemId", async (req: Request, res: Response) => {
   try {
     const { userCode, itemId } = req.params;
-    console.log(`find by id ${itemId}`);
     
     const result = await findController.findById(userCode, itemId)
     res.status(200).json(result);
