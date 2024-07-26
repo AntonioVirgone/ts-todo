@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { FindController } from "./controller/find/FindController";
 import { IFindController } from "./controller/find/IFindController";
-import { MessageError } from "./model/MessageError";
+import { MessageError } from "ts-av-common/dist/MessageError";
 import { ICreateController } from "./controller/create/ICreateController";
 import { CreateController } from "./controller/create/CreateController";
 import { IDeleteController } from "./controller/delete/IDeleteController";
