@@ -1,4 +1,6 @@
+import {Request, Response, NextFunction} from 'express';
+
 export interface IDeleteController {
-    delete(userCode: string): Promise<void>;
-    deleteById(userCode: string, itemId: string): Promise<void>;
+    delete(req: Request, res: Response, next: NextFunction): Promise<void>;
+    deleteById(req: Request, res: Response, next: NextFunction): Promise<void>;
 }

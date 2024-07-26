@@ -8,18 +8,32 @@ import { Request, Response, NextFunction } from "express";
 export class FindController implements IFindController {
   private findService: IFindService = new FindService();
 
-  async findAll(): Promise<TodoElementModel[]> {
+  @Auth
+  async findAll(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<TodoElementModel[]> {
     return await this.findService.findAll();
   }
 
   @Auth
-  async findFromFile(req: Request, res: Response, next: NextFunction): Promise<TodoElementModel[]> {
+  async findFromFile(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<TodoElementModel[]> {
     const { userCode } = req.params;
     return await this.findService.findFileFromFile(userCode);
   }
 
   @Auth
-  async findById(userCode: string, itemId: string): Promise<TodoElementModel> {
+  async findById(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<TodoElementModel> {
+    const { userCode, itemId } = req.params;
     return await this.findService.findById(userCode, itemId);
   }
 }

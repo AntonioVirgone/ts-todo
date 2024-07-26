@@ -1,5 +1,5 @@
-import { TodoElementModel } from "../../model/TodoElement";
+import {Request, Response, NextFunction} from 'express';
 
 export interface ICreateController {
-  create(userCode: string, item: TodoElementModel | TodoElementModel[]): Promise<void>;
+  create(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
