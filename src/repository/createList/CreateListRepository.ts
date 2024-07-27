@@ -1,6 +1,7 @@
 import path from "path";
 import { createFile, checkFileExists } from "ts-av-common";
 import { ICreateListRepository } from "./ICreateListRepository";
+import { ROUTE_FILE } from "../../config/Resources";
 
 export class CreateListRepository implements ICreateListRepository {
     async create(listName: string): Promise<void> {
@@ -8,6 +9,6 @@ export class CreateListRepository implements ICreateListRepository {
             throw new Error(`File ${listName}.json already exist`);
         }
 
-        return await createFile(`${path.join(__dirname, "../../../../resources")}/${listName}.json`);
+        return await createFile(`${path.join(__dirname, ROUTE_FILE)}/${listName}.json`);
     }
 }
