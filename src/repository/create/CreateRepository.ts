@@ -4,6 +4,7 @@ import { FindFromFileRepository } from "../find/FindFromFileRepository";
 import { write, generateRandomString } from "ts-av-common";
 import { TodoElementModel } from "../../model/TodoElementModel";
 import { TodoStatus } from "../../model/TodoStatus";
+import { ROUTE_FILE } from "../../config/Resources";
 
 export class CreateRepository implements ICreateRepository {
   private findRepository: FindFromFileRepository = new FindFromFileRepository();
@@ -28,7 +29,7 @@ export class CreateRepository implements ICreateRepository {
     try {
       data.push(this.updateItem(item));
 
-      await write(`${path.join(__dirname, "../../../../resources")}/${userCode}.json`, data);
+      await write(`${path.join(__dirname, ROUTE_FILE)}/${userCode}.json`, data);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
@@ -44,7 +45,7 @@ export class CreateRepository implements ICreateRepository {
       const updatedItem = items.map((item) => this.updateItem(item));
       const concatenatedArray = data.concat(updatedItem);
 
-      await write(`${path.join(__dirname, "../../../../resources")}/${userCode}.json`, concatenatedArray);
+      await write(`${path.join(__dirname, ROUTE_FILE)}/${userCode}.json`, concatenatedArray);
     } catch (error) {
       console.error(error);
       throw new Error("Error reading file");
