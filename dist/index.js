@@ -14,65 +14,89 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const FindController_1 = require("./controller/find/FindController");
-const MessageError_1 = require("./model/MessageError");
 const CreateController_1 = require("./controller/create/CreateController");
 const DeleteController_1 = require("./controller/delete/DeleteController");
+const CreateListController_1 = require("./controller/createList/CreateListController");
+const ts_av_common_1 = require("ts-av-common");
 const app = (0, express_1.default)();
 const port = 3010;
 const findController = new FindController_1.FindController();
 const createController = new CreateController_1.CreateController();
+const createListController = new CreateListController_1.CreateListController();
 const deleteController = new DeleteController_1.DeleteController();
 app.use(express_1.default.json());
-app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// GET
+app.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield findController.findAll();
-        res.json(result);
+        const result = yield findController.findAll(req, res, next);
+        res.status(200).json(result);
     }
     catch (error) {
-        const merrsageError = new MessageError_1.MessageError(404, `File not found ${error}`);
+        const merrsageError = new ts_av_common_1.MessageError(404, `File not found ${error}`);
         res.status(merrsageError.getMessageError().status).json(merrsageError);
     }
 }));
-app.get("/json", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/user/:userCode", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield findController.findFromFile();
-        res.json(result);
+        const result = yield findController.findFromFile(req, res, next);
+        res.status(200).json(result);
     }
     catch (error) {
-        const merrsageError = new MessageError_1.MessageError(404, `File not found ${error}`);
+        const merrsageError = new ts_av_common_1.MessageError(404, `File not found ${error}`);
         res.status(merrsageError.getMessageError().status).json(merrsageError);
     }
 }));
-app.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/user/:userCode/item/:itemId", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield createController.create(req.body);
+        const result = yield findController.findById(req, res, next);
+        res.status(200).json(result);
+    }
+    catch (error) {
+        const merrsageError = new ts_av_common_1.MessageError(404, `Resource not found ${error}`);
+        res.status(merrsageError.getMessageError().status).json(merrsageError);
+    }
+}));
+// POST
+app.post("/user/:userCode", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield createController.create(req, res, next);
         res.status(201).json();
     }
     catch (error) {
-        const merrsageError = new MessageError_1.MessageError(400, `Input nota valid ${error}`);
+        const merrsageError = new ts_av_common_1.MessageError(400, `Input nota valid ${error}`);
         res.status(merrsageError.getMessageError().status).json(merrsageError);
     }
 }));
-app.delete("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post("/user/:userCode/list", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield deleteController.delete();
-        res.send(200).json();
+        yield createListController.create(req, res, next);
+        res.status(201).json();
     }
     catch (error) {
-        const messageError = new MessageError_1.MessageError(403, `Delete all element failed ${error}`);
-        res.status(messageError.getMessageError().status).json(messageError);
+        const merrsageError = new ts_av_common_1.MessageError(409, `Create list failed ${error}`);
+        res.status(merrsageError.getMessageError().status).json(merrsageError);
     }
 }));
-app.delete("/:itemId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// DELETE
+app.delete("/user/:userCode", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { itemId } = req.params;
-        yield deleteController.deleteById(itemId);
+        yield deleteController.delete(req, res, next);
         res.status(200).json();
     }
     catch (error) {
-        const messageError = new MessageError_1.MessageError(403, `Delete element failed ${error}`);
+        const messageError = new ts_av_common_1.MessageError(403, `Delete all element failed ${error}`);
+        res.status(messageError.getMessageError().status).json(messageError);
+    }
+}));
+app.delete("/user/:userCode/item/:itemId", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield deleteController.deleteById(req, res, next);
+        res.status(200).json();
+    }
+    catch (error) {
+        const messageError = new ts_av_common_1.MessageError(403, `Delete element failed ${error}`);
     }
 }));
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Server ts-todo is running at http://localhost:${port}`);
 });

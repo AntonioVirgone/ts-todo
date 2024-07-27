@@ -1,9 +1,9 @@
 import { IFindController } from "./IFindController";
 import { IFindService } from "../../service/find/IFindService";
 import { FindService } from "../../service/find/FindService";
-import { TodoElementModel } from "../../model/TodoElement";
 import { Auth } from "../../decorator/Auth";
 import { Request, Response, NextFunction } from "express";
+import { TodoElementModel } from "../../model/TodoElementModel";
 
 export class FindController implements IFindController {
   private findService: IFindService = new FindService();

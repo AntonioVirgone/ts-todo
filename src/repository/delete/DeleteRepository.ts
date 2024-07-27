@@ -1,8 +1,8 @@
 import path from "path";
 import { IDeleteRepository } from "./IDeleteRepository";
 import { FindFromFileRepository } from "../find/FindFromFileRepository";
-import { TodoElementModel } from "../../model/TodoElement";
 import { write } from "ts-av-common";
+import { TodoElementModel } from "../../model/TodoElementModel";
 
 export class DeleteRepository implements IDeleteRepository {
   private findRepository: FindFromFileRepository = new FindFromFileRepository();

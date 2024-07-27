@@ -1,6 +1,6 @@
 {
   "name": "ts-todo",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -17,7 +17,7 @@
     "axios": "^1.7.2",
     "express": "^4.19.2",
     "jest-mock-extended": "^3.0.7",
-    "ts-av-common": "^1.1.0"
+    "ts-av-common": "^1.1.7"
   },
   "devDependencies": {
     "@nestjs/testing": "^10.3.10",

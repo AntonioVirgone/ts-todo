@@ -8,15 +8,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindFromFileRepository = void 0;
-const ReadFile_1 = require("../../utils/ReadFile");
+const path_1 = __importDefault(require("path"));
+const ts_av_common_1 = require("ts-av-common");
 class FindFromFileRepository {
-    findAll() {
+    findAll(userCode) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("find from file");
             try {
-                return JSON.parse(yield (0, ReadFile_1.read)());
+                const filePath = yield (0, ts_av_common_1.readFile)(`${path_1.default.join(__dirname, "../../../resources")}/${userCode}.json`);
+                return JSON.parse(filePath);
+            }
+            catch (error) {
+                console.error(error);
+                throw new Error("Error reading file");
+            }
+        });
+    }
+    findById(userCode, itemId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const itemList = yield JSON.parse(yield (0, ts_av_common_1.readFile)(`${path_1.default.join(__dirname, "../../../resources")}/${userCode}.json`));
+                const itemListFiltered = itemList.filter((item) => item._id === itemId);
+                if (itemListFiltered.length > 0) {
+                    return itemListFiltered[0];
+                }
+                else {
+                    throw new Error("Element not found");
+                }
             }
             catch (error) {
                 console.error(error);

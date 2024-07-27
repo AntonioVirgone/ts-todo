@@ -1,4 +1,4 @@
-import { TodoElementModel } from "../../model/TodoElement";
+import { TodoElementModel } from "../../model/TodoElementModel";
 import { FindFromFileRepository } from "../../repository/find/FindFromFileRepository";
 import { FindRepository } from "../../repository/find/FindRepository";
 import { IFindRepository } from "../../repository/find/IFindRepository";

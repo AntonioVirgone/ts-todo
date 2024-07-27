@@ -1,9 +1,9 @@
 import path from "path";
-import { TodoElementModel } from "../../model/TodoElement";
 import { ICreateRepository } from "./ICreateRepository";
 import { FindFromFileRepository } from "../find/FindFromFileRepository";
-import { TodoStatus } from "../../model/TodoStatus";
 import { write, generateRandomString } from "ts-av-common";
+import { TodoElementModel } from "../../model/TodoElementModel";
+import { TodoStatus } from "../../model/TodoStatus";
 
 export class CreateRepository implements ICreateRepository {
   private findRepository: FindFromFileRepository = new FindFromFileRepository();
