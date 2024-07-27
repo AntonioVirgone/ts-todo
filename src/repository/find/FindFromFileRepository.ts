@@ -1,7 +1,7 @@
 import path from "path";
-import { TodoElementModel } from "../../model/TodoElement";
 import { readFile } from "ts-av-common";
 import { IFindRepository } from "./IFindRepository";
+import { TodoElementModel } from "../../model/TodoElementModel";
 
 export class FindFromFileRepository implements IFindRepository {
   async findAll(userCode: string): Promise<TodoElementModel[]> {

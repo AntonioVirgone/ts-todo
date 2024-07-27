@@ -1,5 +1,5 @@
-import { TodoElementModel } from "../../model/TodoElement";
 import { Request, Response, NextFunction } from "express";
+import { TodoElementModel } from "../../model/TodoElementModel";
 
 export interface IFindController {
     findAll(req: Request, res: Response, next: NextFunction): Promise<TodoElementModel[]>;

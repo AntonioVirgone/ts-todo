@@ -1,4 +1,4 @@
-import { TodoElementModel } from "../../model/TodoElement";
+import { TodoElementModel } from "../../model/TodoElementModel";
 import { TodoStatus } from "../../model/TodoStatus";
 import { IFindRepository } from "./IFindRepository";
 

@@ -8,18 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteRepository = void 0;
+const path_1 = __importDefault(require("path"));
 const FindFromFileRepository_1 = require("../find/FindFromFileRepository");
-const WriteFile_1 = require("../../utils/WriteFile");
+const ts_av_common_1 = require("ts-av-common");
 class DeleteRepository {
     constructor() {
         this.findRepository = new FindFromFileRepository_1.FindFromFileRepository();
     }
-    delete() {
+    delete(userCode) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield (0, WriteFile_1.write)([]);
+                yield (0, ts_av_common_1.write)(`${path_1.default.join(__dirname, "../../../../resources")}/${userCode}.json`, []);
             }
             catch (error) {
                 console.error(error);
@@ -27,12 +31,12 @@ class DeleteRepository {
             }
         });
     }
-    deleteById(itemId) {
+    deleteById(userCode, itemId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const items = yield this.findRepository.findAll();
+                const items = yield this.findRepository.findAll(userCode);
                 const newItems = items.filter((item) => item._id !== itemId);
-                yield (0, WriteFile_1.write)(newItems);
+                yield (0, ts_av_common_1.write)(`${path_1.default.join(__dirname, "../../../../resources")}/${userCode}.json`, newItems);
             }
             catch (error) {
                 console.error(error);

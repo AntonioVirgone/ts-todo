@@ -8,31 +8,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateRepository = void 0;
+const path_1 = __importDefault(require("path"));
 const FindFromFileRepository_1 = require("../find/FindFromFileRepository");
+const ts_av_common_1 = require("ts-av-common");
 const TodoStatus_1 = require("../../model/TodoStatus");
-const WriteFile_1 = require("../../utils/WriteFile");
 class CreateRepository {
     constructor() {
         this.findRepository = new FindFromFileRepository_1.FindFromFileRepository();
     }
-    create(item) {
+    create(userCode, item) {
         return __awaiter(this, void 0, void 0, function* () {
-            let data = yield this.findRepository.findAll();
+            let data = yield this.findRepository.findAll(userCode);
             if (Array.isArray(item)) {
-                this.addMultipleItem(item, data);
+                this.addMultipleItem(userCode, item, data);
             }
             else {
-                this.addSingleItem(item, data);
+                this.addSingleItem(userCode, item, data);
             }
         });
     }
-    addSingleItem(item, data) {
+    addSingleItem(userCode, item, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 data.push(this.updateItem(item));
-                yield (0, WriteFile_1.write)(data);
+                yield (0, ts_av_common_1.write)(`${path_1.default.join(__dirname, "../../../../resources")}/${userCode}.json`, data);
             }
             catch (error) {
                 console.error(error);
@@ -40,12 +44,12 @@ class CreateRepository {
             }
         });
     }
-    addMultipleItem(items, data) {
+    addMultipleItem(userCode, items, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const updatedItem = items.map((item) => this.updateItem(item));
                 const concatenatedArray = data.concat(updatedItem);
-                yield (0, WriteFile_1.write)(concatenatedArray);
+                yield (0, ts_av_common_1.write)(`${path_1.default.join(__dirname, "../../../../resources")}/${userCode}.json`, concatenatedArray);
             }
             catch (error) {
                 console.error(error);
@@ -55,7 +59,7 @@ class CreateRepository {
     }
     // Update item with id, status and create date time
     updateItem(item) {
-        return Object.assign(Object.assign({}, item), { _id: Math.random().toString(36), status: TodoStatus_1.TodoStatus.PENDING, createdAt: new Date() });
+        return Object.assign(Object.assign({}, item), { _id: (0, ts_av_common_1.generateRandomString)(36), status: TodoStatus_1.TodoStatus.PENDING, createdAt: new Date() });
     }
 }
 exports.CreateRepository = CreateRepository;

@@ -1,4 +1,4 @@
-import { TodoElementModel } from "../../model/TodoElement";
+import { TodoElementModel } from "../../model/TodoElementModel";
 import { CreateRepository } from "../../repository/create/CreateRepository";
 import { ICreateRepository } from "../../repository/create/ICreateRepository";
 import { ICreateService } from "./ICreateService";

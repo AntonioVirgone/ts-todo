@@ -17,12 +17,25 @@ class FindRepository {
             return [
                 {
                     _id: "abc",
+                    userCode: "abc",
                     title: "Title 1",
                     description: "lorem ipsum",
                     status: TodoStatus_1.TodoStatus.COMPLETED,
-                    createdAt: new Date()
+                    createdAt: new Date(),
                 },
             ];
+        });
+    }
+    findById(itemId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return {
+                _id: "abc",
+                userCode: "abc",
+                title: "Title 1",
+                description: "lorem ipsum",
+                status: TodoStatus_1.TodoStatus.COMPLETED,
+                createdAt: new Date(),
+            };
         });
     }
 }
