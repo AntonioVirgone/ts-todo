@@ -15,9 +15,9 @@ export class CreateRepository implements ICreateRepository {
   ): Promise<void> {
     let data: TodoElementModel[] = await this.findRepository.findAll(userCode);
     if (Array.isArray(item)) {
-      this.addMultipleItem(userCode, item, data);
+      return await this.addMultipleItem(userCode, item, data);
     } else {
-      this.addSingleItem(userCode, item, data);
+      return await this.addSingleItem(userCode, item, data);
     }
   }
 

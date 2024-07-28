@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from "express";
 import { Auth } from "../../decorator/Auth";
 import { CreateService } from "../../service/create/CreateService";
 import { ICreateService } from "../../service/create/ICreateService";
@@ -10,6 +10,9 @@ export class CreateController implements ICreateController {
   @Auth
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { userCode } = req.params;
-    this.createService.create(userCode, req.body);
+
+    console.log(`request body: ${req.body}`);
+
+    return await this.createService.create(userCode, req.body);
   }
 }
