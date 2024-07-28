@@ -15,9 +15,9 @@ export class CreateRepository implements ICreateRepository {
   ): Promise<void> {
     let data: TodoElementModel[] = await this.findRepository.findAll(userCode);
     if (Array.isArray(item)) {
-      this.addMultipleItem(userCode, item, data);
+      return await this.addMultipleItem(userCode, item, data);
     } else {
-      this.addSingleItem(userCode, item, data);
+      return await this.addSingleItem(userCode, item, data);
     }
   }
 
@@ -32,7 +32,7 @@ export class CreateRepository implements ICreateRepository {
       await write(`${path.join(__dirname, ROUTE_FILE)}/${userCode}.json`, data);
     } catch (error) {
       console.error(error);
-      throw new Error("Error reading file");
+      throw new Error("Error writting file");
     }
   }
 
@@ -48,7 +48,7 @@ export class CreateRepository implements ICreateRepository {
       await write(`${path.join(__dirname, ROUTE_FILE)}/${userCode}.json`, concatenatedArray);
     } catch (error) {
       console.error(error);
-      throw new Error("Error reading file");
+      throw new Error("Error writting file");
     }
   }
 
